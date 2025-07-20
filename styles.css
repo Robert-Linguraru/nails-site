@@ -49,13 +49,16 @@ header {
 
 .navbar {
     display: flex; 
-    justify-content: flex-end; 
     align-items: center;
     width: auto; 
     background-color: transparent; 
     overflow: visible; 
     transition: 0.4s;
+    flex-grow: 1; /* Allows the navbar to take up available space */
+    justify-content: flex-end; /* Pushes the ul (nav items) to the right within the navbar */
+    padding-right: 75px;
 }
+
 .logo img {
     height: 80px; /* Initial height, will be adjusted by JS */
     transition: 0.4s;
@@ -68,6 +71,7 @@ header {
     gap: 20px;
     margin: 0;
     padding: 0;
+    margin-left: auto;
 }
 
 .navbar ul li a {
@@ -390,27 +394,46 @@ footer {
     /* Adjust navbar flex behavior for mobile */
     .navbar {
         justify-content: space-between; /* Space logo and hamburger */
-        width: 100%; /* Take full width of header on mobile */
+        width: 90%; /* Take full width of header on mobile */
         padding: 0; /* Ensure no conflicting padding on mobile */
     }
 
-    /* Hide the regular navigation list by default on mobile */
-    .navbar ul {
-        display: none; /* HIDE the navigation list on mobile by default */
-        flex-direction: column; /* Stack items vertically when shown */
-        width: 100%;
-        background-color: #3B3B3B;
-        position: absolute; /* Position relative to the parent with position: relative */
-        top: 70px; /* Adjust based on header height. 70px is good for shrunk header */
-        left: 0;
-        padding: 20px 0;
-        border-top: 1px solid rgba(255, 255, 255, 0.1);
-        box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+/* Show the hamburger on mobile */
+    header .hamburger {
+        display: block;
+        padding-right: 50px;
     }
 
-    /* Make the navigation list visible when the 'active' class is added by JS */
+    /* Animate the hamburger icon to an "X" when active */
+    .hamburger.active .bar:nth-child(2) {
+        opacity: 0;
+    }
+    .hamburger.active .bar:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
+    }
+    .hamburger.active .bar:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
+    }
+
+    .navbar ul {
+        position: fixed;
+        left: -100%; /* Start off-screen */
+        flex-direction: column;
+        background-color: #3B3B3B; /* Dark background */
+        width: 100%;
+        text-align: center;
+        transition: 0.3s;
+        gap: 0;
+        z-index: 1001; /* Ensure it's below the header but above content */
+    }
+
+    .nav-item {
+        margin: 16px 0;
+    }
+
+    /* The 'active' class slides the menu into view */
     .navbar ul.active {
-        display: flex; /* IMPORTANT: Show the navigation list when active */
+        left: 0;
     }
 
     .navbar ul li {
@@ -473,4 +496,20 @@ footer {
     transform: scale(1.1);
     color: #3B3B3B;
 
+}
+
+/* Hamburger Menu */
+.hamburger {
+    display: none; /* Hidden by default on desktop */
+    cursor: pointer;
+}
+
+.bar {
+    display: block;
+    width: 25px;
+    height: 3px;
+    margin: 5px auto;
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+    background-color: #eeeeec; /* White bar color */
 }

@@ -1,21 +1,65 @@
-// 1. Scroll Function for Header (already exists)
+// 1. Scroll Function for Header
 // When the user scrolls down 80px from the top of the document, resize the navbar's padding and the logo's font size
-window.onscroll = function() {scrollFunction()};
+window.onscroll = function() {
+    scrollFunction();
+    adjustNavMenuPosition(); // Call the new function here on scroll
+};
 
 function scrollFunction() {
-  const header = document.getElementById("navbar"); // This ID is on the <nav> element now
-  const logo = document.getElementById("logo").querySelector('img'); // Target the img inside the logo div
+    const header = document.getElementById("navbar"); // This ID is on the <nav> element now
+    const logo = document.getElementById("logo").querySelector('img'); // Target the img inside the logo div
 
-  if (document.body.scrollTop > 80 || document.documentElement.scrollTop > 80) {
-    header.style.padding = "10px 20px"; // Adjust header padding for smaller state
-    logo.style.height = "50px"; // Adjust logo image height for smaller state
-  } else {
-    header.style.padding = "20px"; // Original header padding
-    logo.style.height = "80px"; // Original logo image height
-  }
+    if (document.body.scrollTop > 80 || document.documentElement.scrollTop > 80) {
+        header.style.padding = "10px 20px"; // Adjust header padding for smaller state
+        logo.style.height = "50px"; // Adjust logo image height for smaller state
+    } else {
+        header.style.padding = "20px"; // Original header padding
+        logo.style.height = "80px"; // Original logo image height
+    }
 }
 
-// 2. Scroll Animation Function (newly added)
+// Select the hamburger menu and the navigation list (already exists)
+const hamburger = document.querySelector(".hamburger");
+const navMenu = document.querySelector(".navbar ul");
+
+// Listen for a click on the hamburger menu (already exists)
+hamburger.addEventListener("click", () => {
+    // Toggle the 'active' class on the hamburger icon
+    hamburger.classList.toggle("active");
+    // Toggle the 'active' class on the navigation menu
+    navMenu.classList.toggle("active");
+
+    // Important: When opening/closing, ensure the top is correctly set
+    // This is especially important for the initial opening on a static header
+    adjustNavMenuPosition();
+});
+
+// Optional: Close the menu when a link is clicked (already exists)
+document.querySelectorAll(".nav-link").forEach(n => n.addEventListener("click", () => {
+    hamburger.classList.remove("active");
+    navMenu.classList.remove("active");
+}));
+
+// New function: Dynamically adjust the mobile navigation menu's top position
+function adjustNavMenuPosition() {
+    const header = document.getElementById("navbar");
+    const navMenu = document.querySelector(".navbar ul");
+
+    // Only apply this logic if the screen is considered mobile (same as your media query breakpoint)
+    if (window.innerWidth <= 768) {
+        // Get the current computed height of the header
+        const headerHeight = header.offsetHeight;
+        navMenu.style.top = `${headerHeight}px`;
+    } else {
+        // On desktop, reset the 'top' style to allow CSS rules to take over,
+        // or ensure it doesn't interfere with desktop layout.
+        // You might want to clear specific inline styles applied by JS
+        // if they conflict with desktop CSS.
+        navMenu.style.top = ''; // Clears the inline style set by JS
+    }
+}
+
+// 2. Scroll Animation Function (already exists)
 /**
  * Initializes scroll animations for elements with the 'hidden' class.
  * When an element with 'hidden' class enters the viewport,
@@ -35,8 +79,7 @@ function initScrollAnimations() {
                 observer.unobserve(entry.target);
             }
         });
-    }, 
-  );
+    }, );
 
     // Select all elements that should have the scroll animation
     // These elements should initially have the 'hidden' class in your HTML
@@ -47,10 +90,15 @@ function initScrollAnimations() {
 }
 
 
-// 3. DOMContentLoaded Listener (existing, with added call to initScrollAnimations)
+// 3. DOMContentLoaded Listener (existing, with added calls)
 // This ensures that all elements are available before the scripts try to find them.
 document.addEventListener('DOMContentLoaded', function() {
-
     // Call the new scroll animation function here
     initScrollAnimations();
+    // Also call adjustNavMenuPosition on load to set the initial correct position
+    adjustNavMenuPosition();
 });
+
+// Add an event listener for window resize to re-adjust the nav menu position
+// in case the user resizes the browser window across the mobile/desktop breakpoint.
+window.addEventListener('resize', adjustNavMenuPosition);
