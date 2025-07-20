@@ -1,0 +1,476 @@
+/* General Styles */
+html {
+    scroll-behavior: smooth;
+}
+
+#eeeeec
+#e4bdf0
+#da7fb8
+#9b3985
+#3B3B3B
+
+
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #F8F8F8; /* Changed from #d6d6d6 to match wave fill */
+    color: #3B3B3B; /* Changed from #FFFFFF for better contrast on light background */
+}
+
+a {
+    color: #da7fb8;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: #e4bdf0;
+}
+
+h2 {
+    color: #da7fb8;
+}
+
+/* Header */
+header {
+    background-color: #3B3B3B;
+    padding: 20px; /* Initial padding, will be adjusted by JS */
+    display: flex;
+    justify-content: space-between; /* Spaces logo and nav content */
+    align-items: center;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    transition: padding 0.4s ease, height 0.4s ease;
+}
+
+.navbar {
+    display: flex; 
+    justify-content: flex-end; 
+    align-items: center;
+    width: auto; 
+    background-color: transparent; 
+    overflow: visible; 
+    transition: 0.4s;
+}
+.logo img {
+    height: 80px; /* Initial height, will be adjusted by JS */
+    transition: 0.4s;
+}
+
+
+.navbar ul {
+    list-style: none;
+    display: flex; /* Display as a row on desktop */
+    gap: 20px;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar ul li a {
+    color: #FFFFFF;
+    text-decoration: none;
+    padding: 5px 0;
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+.navbar ul li a:hover {
+    color: #e4bdf0;
+}
+
+.navbar ul li a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    background: #e4bdf0;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    transition: width 0.3s ease;
+}
+
+.navbar ul li a:hover::after {
+    width: 100%;
+}
+
+
+
+/* Hero Section */
+.hero-section {
+  background: linear-gradient(135deg, #e4bdf0, #da7fb8); /* Existing gradient, slightly adjusted */
+    color: #FFFFFF;
+    text-align: center;
+    padding: 100px 20px 0; /* Add top padding to account for navbar */
+    min-height: 400px; /* Ensure enough height for content and wave */
+    display: flex; /* Use flexbox for content centering */
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative; /* Crucial for positioning the wave */
+    overflow: hidden; /* Hide any overflow from the wave if it goes slightly outside */
+    z-index: 0; /* Ensure hero is below fixed header */
+
+}
+
+.hero-content {
+    z-index: 2; /* Ensure content is above the wave */
+    position: relative;
+    padding-bottom: 50px; /* Add space for wave below content */
+}
+
+.wave-container {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    line-height: 0; /* Remove extra space under SVG */
+    z-index: 1; /* Place wave below content */
+}
+
+.wave {
+    display: block;
+    width: 100%;
+    height: auto; /* Maintain aspect ratio */
+}
+
+/* Adjust the fill color of the SVG to match the next section's background */
+.wave path {
+    fill: #F8F8F8; /* This should be the background color of the section immediately following the hero */
+}
+
+.hero-section h1 {
+  font-size: 3rem;
+  color: #9b3985;
+  margin-bottom: 20px;
+}
+
+.hero-section p {
+  font-size: 1.2rem;
+  margin-bottom: 30px;
+  color: #3B3B3B;
+  line-height: 1.6;
+}
+
+.hero-button {
+  background-color: #9b3985;
+  color: white;
+  padding: 15px 30px;
+  text-decoration: none;
+  border-radius: 30px;
+  font-size: 1rem;
+  transition: background 0.3s ease;
+  font-weight: bold;
+}
+
+.hero-button:hover {
+  background-color: #3B3B3B;
+}
+
+
+/* Main Sections */
+section {
+    padding: 60px 20px;
+    text-align: center;
+}
+#about {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+}
+
+.about-text {
+    flex: 1;
+    text-align: left;
+}
+
+.about-image {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.sabina-logo {
+    width: 80%;
+    height: auto;
+    border-radius: 10px;
+}
+/* Pricing List */
+.pricing-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    padding: 0;
+    margin-top: 30px;
+    list-style: none;
+    justify-items: center;
+}
+
+.pricing-list li {
+    background-color: #3B3B3B;
+    padding: 30px;
+    width: 100%;
+    border-radius: 10px;
+    font-size: 1.2rem;
+    transition: background-color 0.3s ease;
+    box-sizing: border-box;
+}
+
+.pricing-list li:hover{
+    background-color: #e4bdf0;
+    box-shadow: 0px 0px 10px #da7fb8;
+    transform: scale(1.05);
+    box-shadow: 0px 20px 30px rgba(214, 167, 176, 0.5);
+}
+
+
+/* Gallery */
+.gallery {
+    display: inline-grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.gallery img {
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.gallery img:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 20px 30px rgba(214, 167, 176, 0.5);
+}
+
+#instagram {
+    background-color: #3B3B3B;
+    padding: 60px 20px;
+    text-align: center;
+}
+
+#instagram h2 {
+    color: #D6A7B0;
+    margin-bottom: 30px;
+}
+
+.instagram-feed {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.instagram-media {
+    max-width: 100px;
+    width: 50%;
+    margin: 0 !important;
+}
+
+/* Contact Form */
+.contact-form {
+    max-width: 600px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.contact-form input,
+.contact-form textarea {
+    padding: 15px;
+    border: none;
+    border-radius: 8px;
+    background-color: #3B3B3B;
+    color: #FFFFFF;
+}
+
+.contact-form input::placeholder,
+.contact-form textarea::placeholder {
+    color: #A88B9B;
+}
+
+.contact-form button {
+    background-color: #da7fb8;
+    color: #3B3B3B;
+    padding: 15px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.contact-form button:hover {
+    background-color: #e4bdf0;
+    box-shadow: 0px 0px 10px #da7fb8;
+}
+
+/* Footer */
+footer {
+    position: sticky;
+    width: 100%;
+    background-color: #3B3B3B;
+    padding: 20px;
+    text-align: center;
+    margin-top: 40px;
+}
+
+.footer-nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 10px;
+}
+
+.footer-nav a {
+    color: #da7fb8;
+}
+
+.footer-nav a:hover {
+    color: #e4bdf0;
+}
+
+.social-logos a img{
+    height: 100px;
+    width: 100px;
+}
+
+.social-logos a img:hover{
+    transform: scale(1.05);
+}
+
+
+    
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    #about {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .about-text {
+        text-align: center;
+    }
+
+    .footer-nav ul {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    /* Reduce padding in sections */
+    section {
+        padding: 40px 10px;
+    }
+
+    .gallery {
+        gap: 10px;
+    }
+
+    /* Contact form inputs full width */
+    .contact-form input,
+    .contact-form textarea,
+    .contact-form button {
+        width: 100%;
+    }
+
+    /* Adjust header padding for smaller screens if needed (though JS handles it) */
+    header {
+        padding: 10px 20px; /* Default for mobile, refined by JS */
+    }
+    /* Adjust navbar flex behavior for mobile */
+    .navbar {
+        justify-content: space-between; /* Space logo and hamburger */
+        width: 100%; /* Take full width of header on mobile */
+        padding: 0; /* Ensure no conflicting padding on mobile */
+    }
+
+    /* Hide the regular navigation list by default on mobile */
+    .navbar ul {
+        display: none; /* HIDE the navigation list on mobile by default */
+        flex-direction: column; /* Stack items vertically when shown */
+        width: 100%;
+        background-color: #3B3B3B;
+        position: absolute; /* Position relative to the parent with position: relative */
+        top: 70px; /* Adjust based on header height. 70px is good for shrunk header */
+        left: 0;
+        padding: 20px 0;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    }
+
+    /* Make the navigation list visible when the 'active' class is added by JS */
+    .navbar ul.active {
+        display: flex; /* IMPORTANT: Show the navigation list when active */
+    }
+
+    .navbar ul li {
+        margin-bottom: 15px;
+        text-align: center;
+    }
+
+    .navbar ul li a {
+        padding: 10px 20px;
+        display: block;
+    }
+
+    /* Ensure logo is properly sized on mobile */
+    .logo img {
+        height: 50px; /* Smaller logo on mobile */
+    }
+}
+
+/* Super small screens */
+@media (max-width: 480px) {
+    h2 {
+        font-size: 1.8rem;
+    }
+
+    body {
+        font-size: 1rem;
+    }
+}
+/* Scroll Animations */
+.hidden {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.show {
+    opacity: 1;
+    transform: translateY(0px);
+}
+
+/* Floating Book Now Button */
+.floating-button {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background-color: #da7fb8;
+    color: #3B3B3B;
+    padding: 15px 25px;
+    border-radius: 50px;
+    font-weight: bold;
+    box-shadow: 0px 4px 15px rgba(214, 167, 176, 0.7);
+    text-decoration: none;
+    font-size: 16px;
+    z-index: 999;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.floating-button:hover {
+    background-color: #e4bdf0;
+    transform: scale(1.1);
+    color: #3B3B3B;
+
+}
