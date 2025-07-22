@@ -1,0 +1,558 @@
+/* General Styles */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Color Palette Variables */
+:root {
+    --color-light-grey: #eeeeec;
+    --color-light-purple: #e4bdf0;
+    --color-mid-pink: #da7fb8;
+    --color-dark-pink: #9b3985;
+    --color-dark-grey: #3B3B3B;
+    --color-body-bg: #F8F8F8; /* Matches wave fill */
+    --color-text-dark: #3B3B3B;
+    --color-text-light: #FFFFFF;
+    --color-placeholder: #A88B9B;
+}
+
+
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--color-body-bg);
+    color: var(--color-text-dark);
+}
+
+a {
+    color: var(--color-mid-pink);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: var(--color-light-purple);
+}
+
+h2 {
+    color: var(--color-mid-pink);
+}
+
+/* Header */
+header {
+    background-color: var(--color-dark-grey);
+    padding: 20px; /* Initial padding, will be adjusted by JS */
+    display: flex;
+    justify-content: space-between; /* Spaces logo and navbar content */
+    align-items: center;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    transition: padding 0.4s ease, height 0.4s ease;
+}
+
+.logo img {
+    height: 80px; /* Initial height, will be adjusted by JS */
+    transition: 0.4s;
+}
+
+/* Navbar (the <nav> element inside the header) */
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end; 
+    width: auto; 
+    background-color: transparent;
+    overflow: visible;
+    transition: 0.4s;
+    padding-right: 50px;
+}
+
+/* Navigation List (ul) - Default Desktop Styles */
+.navbar ul {
+    list-style: none;
+    display: flex; /* IMPORTANT: Show as a row on desktop by default */
+    gap: 20px;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar ul li a {
+    color: var(--color-text-light);
+    text-decoration: none;
+    padding: 5px 0;
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+.navbar ul li a:hover {
+    color: var(--color-light-purple);
+}
+
+.navbar ul li a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    background: var(--color-light-purple);
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    transition: width 0.3s ease;
+}
+
+.navbar ul li a:hover::after {
+    width: 100%;
+}
+
+/* --- GLOBAL HAMBURGER STYLING (Hidden by default on desktop) --- */
+.hamburger {
+    display: none; /* IMPORTANT: Hide by default on desktop */
+    cursor: pointer;
+    flex-direction: column; /* To stack the bars vertically */
+    justify-content: space-around; /* Distribute space between bars */
+    width: 30px; /* Width of the hamburger icon */
+    height: 25px; /* Height of the hamburger icon */
+    z-index: 1001; /* Ensure it's above other elements */
+    padding: 5px; /* Add some padding around the icon area */
+    margin-right: 20px; /* Space from the right edge */
+}
+
+/* --- HAMBURGER BARS STYLING (The actual lines of the icon) --- */
+.hamburger .bar {
+    display: block; /* Ensure each bar behaves like a block element */
+    width: 100%; /* Bars take full width of the hamburger container */
+    height: 3px; /* Thickness of each bar */
+    background-color: var(--color-light-grey); /* Light grey bars visible on dark header */
+    border-radius: 10px;
+    transition: all 0.3s ease-in-out; /* Smooth transition for animation */
+}
+
+/* --- HAMBURGER ANIMATION STYLING (When 'open' class is added by JS) --- */
+.hamburger.open .bar:nth-child(1) {
+    transform: translateY(11px) rotate(45deg);
+}
+.hamburger.open .bar:nth-child(2) {
+    opacity: 0; /* Middle bar fades out */
+}
+.hamburger.open .bar:nth-child(3) {
+    transform: translateY(-11px) rotate(-45deg);
+}
+
+
+/* Hero Section */
+.hero-section {
+    background: linear-gradient(135deg, var(--color-light-purple), var(--color-mid-pink));
+    color: var(--color-text-light);
+    text-align: center;
+    padding: 100px 20px 0; /* Add top padding to account for navbar */
+    min-height: 400px; /* Ensure enough height for content and wave */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    z-index: 0;
+}
+
+.hero-content {
+    /* Glassmorphism Effect */
+    background: rgba(238, 238, 236, 0.6); /* Semi-transparent background */
+    backdrop-filter: blur(15px); /* The "frosty" blur effect! */
+    -webkit-backdrop-filter: blur(15px); /* Safari support */
+    border: 1px solid rgba(238, 238, 236, 0.2); /* Subtle border */
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+
+    z-index: 2;
+    position: relative;
+    padding: 40px 40px 50px 40px; /* Adjusted padding for content box */
+    max-width: 700px; /* Keep max-width */
+    margin: 0 auto; /* Center the content box */
+}
+
+.wave-container {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    line-height: 0;
+    z-index: 1;
+}
+
+.wave {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.wave path {
+    fill: var(--color-body-bg); /* Use variable for body background */
+}
+
+/* Fluid Typography for Hero Section */
+.hero-section h1 {
+    font-size: clamp(2.5rem, 5vw, 4rem); /* Min, Preferred, Max */
+    color: var(--color-dark-pink);
+    margin-bottom: 20px;
+}
+
+.hero-section p {
+    font-size: clamp(1rem, 2.5vw, 1.25rem); /* Min, Preferred, Max */
+    margin-bottom: 30px;
+    color: var(--color-text-dark);
+    line-height: 1.6;
+}
+
+.hero-button {
+    background-color: var(--color-dark-pink);
+    color: var(--color-text-light);
+    padding: 15px 30px;
+    text-decoration: none;
+    border-radius: 30px;
+    font-size: 1rem;
+    transition: background 0.3s ease;
+    font-weight: bold;
+}
+
+.hero-button:hover {
+    background-color: var(--color-dark-grey);
+}
+
+
+/* Main Sections */
+main {
+    margin-top: 100px; /* Ensure content is below fixed header */
+    padding: 20px; /* General padding for main content */
+}
+
+section {
+    padding: 60px 20px;
+    text-align: center;
+}
+#about {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+}
+
+.about-text {
+    flex: 1;
+    text-align: left;
+}
+
+.about-image {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.sabina-logo {
+    width: 80%;
+    height: auto;
+    border-radius: 10px;
+}
+/* Pricing List */
+.pricing-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    padding: 0;
+    margin-top: 30px;
+    list-style: none;
+    justify-items: center;
+}
+
+.pricing-list li {
+    background-color: var(--color-dark-grey);
+    padding: 30px;
+    width: 100%;
+    border-radius: 10px;
+    font-size: 1.2rem;
+    transition: background-color 0.3s ease;
+    box-sizing: border-box;
+    color: var(--color-text-light);
+}
+
+.pricing-list li:hover{
+    background-color: var(--color-light-purple);
+    box-shadow: 0px 0px 10px var(--color-mid-pink);
+    transform: scale(1.05);
+    box-shadow: 0px 20px 30px rgba(214, 167, 176, 0.5);
+}
+
+
+/* Gallery */
+.gallery {
+    display: inline-grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.gallery img {
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.gallery img:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 20px 30px rgba(214, 167, 176, 0.5);
+}
+
+#instagram {
+    background-color: var(--color-dark-grey);
+    padding: 60px 20px;
+    text-align: center;
+    color: var(--color-text-light);
+}
+
+#instagram h2 {
+    color: var(--color-mid-pink);
+    margin-bottom: 30px;
+}
+
+.instagram-feed {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.instagram-media {
+    max-width: 100px; /* This is very small, will address later */
+    width: 50%;
+    margin: 0 !important;
+}
+
+/* Contact Form */
+.contact-form {
+    max-width: 600px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.contact-form input,
+.contact-form textarea {
+    padding: 15px;
+    border: none;
+    border-radius: 8px;
+    background-color: var(--color-dark-grey);
+    color: var(--color-text-light);
+}
+
+.contact-form input::placeholder,
+.contact-form textarea::placeholder {
+    color: var(--color-placeholder);
+}
+
+.contact-form button {
+    background-color: var(--color-mid-pink);
+    color: var(--color-text-dark);
+    padding: 15px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.contact-form button:hover {
+    background-color: var(--color-light-purple);
+    box-shadow: 0px 0px 10px var(--color-mid-pink);
+}
+
+
+/* Footer */
+footer {
+    width: 100%;
+    background-color: var(--color-dark-grey);
+    padding: 20px;
+    text-align: center;
+    margin-top: 40px;
+    color: var(--color-text-light);
+}
+
+.footer-nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 10px;
+}
+
+.footer-nav a {
+    color: var(--color-mid-pink);
+}
+
+.footer-nav a:hover {
+    color: var(--color-light-purple);
+}
+
+.social-logos a img{
+    height: 50px; /* Reduced size for better proportion */
+    width: 50px; /* Reduced size for better proportion */
+    transition: transform 0.3s ease; /* Added transition */
+}
+
+.social-logos a img:hover{
+    transform: scale(1.1); /* Slightly larger scale on hover */
+}
+
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    #about {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .about-text {
+        text-align: center;
+    }
+
+    .footer-nav ul {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    /* Reduce padding in sections */
+    section {
+        padding: 40px 10px;
+    }
+
+    .gallery {
+        gap: 10px;
+    }
+
+    /* Contact form inputs full width */
+    .contact-form input,
+    .contact-form textarea,
+    .contact-form button {
+        width: 100%;
+    }
+
+    /* Adjust header padding for smaller screens */
+    header {
+        padding: 10px 20px;
+    }
+
+    /* Navbar flex behavior for mobile */
+    .navbar {
+        justify-content: flex-end;
+        width: 100%; /* Take full width of header on mobile */
+        padding: 0; /* Ensure no conflicting padding on navbar itself on mobile */
+    }
+
+    /* HIDE the full navigation list on mobile/shrunk desktop */
+    .navbar ul {
+        display: none; /* HIDE the full navigation list */
+        flex-direction: column; /* Stack items vertically when shown */
+        width: 100%; /* Full width for mobile */
+        background-color: var(--color-dark-grey); /* Background for the dropdown menu */
+        position: absolute;
+        top: 70px; /* Adjust based on shrunk header's height */
+        left: -100%; /* Start off-screen to slide in */
+        padding: 20px 0;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+        z-index: 999;
+        transition: left 0.3s ease-in-out; /* Smooth slide transition */
+    }
+
+
+    
+    /* SHOW the mobile navigation list when active */
+    .navbar ul.active {
+        left: 0; /* Slide into view */
+        display: flex; /* Ensure it's displayed */
+    }
+
+    /* DISPLAY HAMBURGER ON SMALL SCREENS */
+    .hamburger {
+        display: flex; /* SHOW the hamburger icon on mobile/shrunk desktop */
+        padding-right: 0; /* Remove specific padding for hamburger */
+        padding-right: 50px;
+    }
+
+    .hamburger.active .bar:nth-child(2) {
+        opacity: 0;
+    }
+    .hamburger.active .bar:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
+    }
+    .hamburger.active .bar:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
+    }
+
+    .navbar ul li {
+        margin-bottom: 15px;
+        text-align: center;
+    }
+
+    .navbar ul li a {
+        padding: 10px 20px;
+        display: block;
+    }
+
+    /* Ensure logo is properly sized on mobile */
+    .logo img {
+        height: 50px; /* Smaller logo height on mobile */
+    }
+}
+
+/* Super small screens */
+@media (max-width: 480px) {
+    h2 {
+        font-size: 1.8rem;
+    }
+
+    body {
+        font-size: 1rem;
+    }
+}
+
+/* Scroll Animations */
+.hidden {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.show {
+    opacity: 1;
+    transform: translateY(0px);
+}
+
+/* Floating Book Now Button */
+.floating-button {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background-color: var(--color-mid-pink);
+    color: var(--color-text-dark);
+    padding: 15px 25px;
+    border-radius: 50px;
+    font-weight: bold;
+    box-shadow: 0px 4px 15px rgba(214, 167, 176, 0.7);
+    text-decoration: none;
+    font-size: 16px;
+    z-index: 999;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.floating-button:hover {
+    background-color: var(--color-light-purple);
+    transform: scale(1.1);
+    color: var(--color-text-dark);
+}

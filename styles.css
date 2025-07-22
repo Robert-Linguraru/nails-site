@@ -319,7 +319,6 @@ section {
 
 /* Footer */
 footer {
-    position: sticky;
     width: 100%;
     background-color: #3B3B3B;
     padding: 20px;

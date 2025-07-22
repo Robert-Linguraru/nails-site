@@ -1,12 +1,14 @@
+// scripts.js
+
 // 1. Scroll Function for Header
 // When the user scrolls down 80px from the top of the document, resize the navbar's padding and the logo's font size
 window.onscroll = function() {
     scrollFunction();
-    adjustNavMenuPosition(); // Call the new function here on scroll
+    adjustNavMenuPosition(); // Call this on scroll to adjust for header height changes
 };
 
 function scrollFunction() {
-    const header = document.getElementById("navbar"); // This ID is on the <nav> element now
+    const header = document.getElementById("mainHeader"); // Correctly target the main header
     const logo = document.getElementById("logo").querySelector('img'); // Target the img inside the logo div
 
     if (document.body.scrollTop > 80 || document.documentElement.scrollTop > 80) {
@@ -18,48 +20,49 @@ function scrollFunction() {
     }
 }
 
-// Select the hamburger menu and the navigation list (already exists)
+// Select the hamburger menu and the navigation list
 const hamburger = document.querySelector(".hamburger");
 const navMenu = document.querySelector(".navbar ul");
 
-// Listen for a click on the hamburger menu (already exists)
-hamburger.addEventListener("click", () => {
-    // Toggle the 'active' class on the hamburger icon
-    hamburger.classList.toggle("active");
-    // Toggle the 'active' class on the navigation menu
-    navMenu.classList.toggle("active");
+// Listen for a click on the hamburger menu
+if (hamburger && navMenu) { // Ensure elements exist before adding listeners
+    hamburger.addEventListener("click", () => {
+        // Toggle the 'active' class on the hamburger icon
+        hamburger.classList.toggle("active");
+        // Toggle the 'active' class on the navigation menu
+        navMenu.classList.toggle("active");
 
-    // Important: When opening/closing, ensure the top is correctly set
-    // This is especially important for the initial opening on a static header
-    adjustNavMenuPosition();
-});
+        // Important: When opening/closing, ensure the top is correctly set
+        adjustNavMenuPosition(); // Call this immediately after toggle
+    });
 
-// Optional: Close the menu when a link is clicked (already exists)
-document.querySelectorAll(".nav-link").forEach(n => n.addEventListener("click", () => {
-    hamburger.classList.remove("active");
-    navMenu.classList.remove("active");
-}));
+    // Optional: Close the menu when a link is clicked
+    document.querySelectorAll(".nav-link").forEach(n => n.addEventListener("click", () => {
+        hamburger.classList.remove("active");
+        navMenu.classList.remove("active");
+        adjustNavMenuPosition(); // Call this when closing
+    }));
+}
+
 
 // New function: Dynamically adjust the mobile navigation menu's top position
 function adjustNavMenuPosition() {
-    const header = document.getElementById("navbar");
+    const header = document.getElementById("mainHeader"); // CHANGED: Get the actual header element
     const navMenu = document.querySelector(".navbar ul");
 
     // Only apply this logic if the screen is considered mobile (same as your media query breakpoint)
-    if (window.innerWidth <= 768) {
+    if (window.innerWidth <= 768 && header && navMenu) { // Added null checks
         // Get the current computed height of the header
         const headerHeight = header.offsetHeight;
         navMenu.style.top = `${headerHeight}px`;
-    } else {
+    } else if (navMenu) { // Only reset if navMenu exists
         // On desktop, reset the 'top' style to allow CSS rules to take over,
         // or ensure it doesn't interfere with desktop layout.
-        // You might want to clear specific inline styles applied by JS
-        // if they conflict with desktop CSS.
         navMenu.style.top = ''; // Clears the inline style set by JS
     }
 }
 
-// 2. Scroll Animation Function (already exists)
+// 2. Scroll Animation Function
 /**
  * Initializes scroll animations for elements with the 'hidden' class.
  * When an element with 'hidden' class enters the viewport,
