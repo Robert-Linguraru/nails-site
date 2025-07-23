@@ -1,5 +1,42 @@
-Get text from sabina, add include photos in about.html. storyline
-Certifications, add photos scanned in email
-Contact page will require a form to be filled, that can then be sent to Sabina email address
-Portfolio will contain photos of her work, designed in some grid fashion with types of nails
-Pricing will contain prices, listed in order from the picture she sends
+work to do:
+-------------------------------------------------------------------------------------------
+Remove the about me page, no point. Instead strenghten the About me section on the front page
+-----> Prompt: Im going to remove the About me section on my website. To do this, i need to strenghten and make the About me section on my home page better
+               I would like you to suggest better approach to make the about me section on the home page better, visually and more aestetically pleasing to users.
+
+
+
+
+Change the gallery on the first page, remove instagram links from the front page
+    >>> Remove many of the photos, add a view more photos button link that takes you to portfolio
+populate portfolio with photos from gallery, look for a good design
+    >>> Perhaps have a look at moving the instagram pages to the portfolio part
+
+
+
+----------------------------------------------------------------------------------------------------------------------
+Fix pricing page with svg data etc, check gemini. Apart from some small fixes the pricing page should be done.        |
+    >>> We will add icons to the specific cards suggesting their respective things.                                   |
+        Find icons on the website, download and implement instead of svg tags                                         |
+----------------------------------------------------------------------------------------------------------------------
+
+
+Contact me page has to be done, from design on the internet, just adapted to specific colour scheme
+-----> Prompt: Using this image as reference i would like you to construct me something similar to add to my Contact me page.
+               I would like it to look just like this and perhaps you can add some colour changing gradient in the X in the design.
+               Also if you think you can come up with a better design, or make the image design better please take full reign on this.
+               I will comment on potential changes i would like after ive seen what youve come up with.
+
+
+
+Can just upload the certifications, no specific design
+-----> Prompt: Give me a simple design for the certifications page, that i can upload the clients certifications.
+               I also really like the design on the Pricing page with the heading, if you can give me the same design again to implement on all my other pages.
+
+
+
+
+
+
+
+Implement Email sending logic to send emails directly from the form

@@ -509,6 +509,38 @@ footer {
     .logo img {
         height: 50px; /* Smaller logo height on mobile */
     }
+
+    /* Pricing Page - Adjustments*/
+    .pricing-grid {
+                grid-template-columns: 1fr; /* Stack cards on smaller screens */
+                padding: 15px;
+            }
+
+            .pricing-card {
+                padding: 25px;
+            }
+
+            .pricing-card h3 {
+                font-size: 1.6rem;
+            }
+
+            .pricing-card .price {
+                font-size: 2rem;
+            }
+
+    /* Certifications Page - Adjustments*/
+            .certifications-grid {
+                grid-template-columns: 1fr; /* Stack cards on smaller screens */
+                padding: 15px;
+            }
+
+            .certification-card {
+                min-height: auto; /* Allow height to adjust */
+            }
+
+            .page-intro-section {
+                padding: 30px 15px;
+            }
 }
 
 /* Super small screens */
@@ -520,6 +552,19 @@ footer {
     body {
         font-size: 1rem;
     }
+    /* Pricing Page - Adjustments*/
+
+             .pricing-card {
+                padding: 20px;
+            }
+
+            .pricing-card h3 {
+                font-size: 1.4rem;
+            }
+
+            .pricing-card .price {
+                font-size: 1.8rem;
+            }
 }
 
 /* Scroll Animations */
@@ -556,3 +601,276 @@ footer {
     transform: scale(1.1);
     color: var(--color-text-dark);
 }
+
+/* Pricing cards on pricing page*/
+        .main-pricing {
+            padding-top: 120px; /* Increased padding to account for fixed header */
+            padding-bottom: 60px;
+        }
+
+        .price-text {
+            text-align: center;
+            max-width: 800px;
+            margin: 20px auto;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+.pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 50px auto; /* Center the grid and add top margin */
+        }
+
+        .pricing-card {
+            background-color: var(--color-dark-grey);
+            color: var(--color-text-light);
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            /* Updated box shadow for more prominence */
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 250px; /* Increased min-height to accommodate icon and better spacing */
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-10px);
+            /* Updated box shadow on hover */
+            box-shadow: 0 18px 45px rgba(214, 167, 176, 0.6);
+        }
+
+        .pricing-card h3 {
+            color: var(--color-mid-pink);
+            font-size: 1.8rem;
+            margin-bottom: 15px; /* Increased margin for better spacing with icon */
+        }
+
+        .pricing-card .price {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--color-light-purple);
+            margin-bottom: 20px;
+        }
+
+        .pricing-card .description {
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            flex-grow: 1; /* Allow description to take available space */
+        }
+
+/* Styles for the heading section */
+        .pricing-intro-section {
+            background: linear-gradient(180deg, var(--color-body-bg) 0%, rgba(248, 248, 248, 0.8) 100%);
+            padding: 40px 20px;
+            text-align: center;
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden; /* For the wave background */
+        }
+
+        .pricing-intro-section h2 {
+            font-size: clamp(2rem, 4vw, 3rem); /* Responsive font size */
+            color: var(--color-dark-pink);
+            margin-bottom: 15px;
+            letter-spacing: 1px; /* Slightly more spaced letters */
+        }
+
+        .pricing-intro-section p {
+            max-width: 800px;
+            margin: 0 auto 30px auto; /* Center and add bottom margin */
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: var(--color-text-dark);
+        }
+
+                /* Separator style */
+        .heading-separator {
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--color-light-purple), var(--color-mid-pink));
+            margin: 15px auto 40px auto; /* Center and add vertical spacing */
+            border-radius: 2px;
+        }
+
+        /* Service Icon styles */
+        .service-icon {
+            width: 50px;
+            height: 50px;
+            margin: 0 auto 20px auto; /* Center and add spacing below icon */
+            fill: var(--color-light-purple); /* Icon color */
+            display: block; /* Ensure it takes its own line */
+        }
+
+        /* Single "Programează Acum" button after the grid */
+        .main-book-button-container {
+            text-align: center;
+            margin-top: 60px;
+            margin-bottom: 80px; /* Space before footer */
+        }
+
+        .main-book-button {
+            display: inline-block;
+            background-color: var(--color-dark-pink);
+            color: var(--color-text-light);
+            padding: 18px 40px;
+            border-radius: 40px;
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: bold;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .main-book-button:hover {
+            background-color: var(--color-mid-pink);
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .main-wave-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1; /* Send it behind content */
+            opacity: 0.1; /* Subtle opacity */
+            pointer-events: none; /* Ensure it doesn't interfere with clicks */
+        }
+
+        .main-wave-bg svg {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        .main-wave-bg path {
+            fill: var(--color-light-purple); /* Use a light color for the wave */
+        }
+
+
+
+/* Certifications Page - Specific Styles */
+
+.page-intro-section {
+            background: linear-gradient(180deg, var(--color-body-bg) 0%, rgba(248, 248, 248, 0.8) 100%);
+            padding: 40px 20px;
+            text-align: center;
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-intro-section h2 {
+            font-size: clamp(2rem, 4vw, 3rem); /* Responsive font size */
+            color: var(--color-dark-pink);
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+        }
+
+        .page-intro-section p {
+            max-width: 800px;
+            margin: 0 auto 30px auto;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: var(--color-text-dark);
+        }
+
+        .heading-separator {
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--color-light-purple), var(--color-mid-pink));
+            margin: 15px auto 40px auto;
+            border-radius: 2px;
+        }
+
+        /* Certifications Grid */
+        .certifications-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 50px auto;
+        }
+
+        .certification-card {
+            background-color: var(--color-dark-grey);
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            overflow: hidden; /* Ensures image corners are rounded with card */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .certification-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(214, 167, 176, 0.4);
+        }
+
+        .certification-card img {
+            width: 100%;
+            height: 200px; /* Fixed height for consistency */
+            object-fit: cover; /* Ensures image covers the area without distortion */
+            display: block; /* Ensure image itself is block for proper sizing */
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Subtle separator */
+            box-sizing: border-box; /* Also apply to img for consistency */
+        }
+        
+        .certification-info {
+            padding: 20px;
+            color: var(--color-text-light);
+            text-align: center;
+        }
+
+        .certification-info h3 {
+            color: var(--color-light-purple);
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        .certification-info p {
+            font-size: 0.95rem;
+            line-height: 1.5;
+            color: var(--color-light-grey);
+        }
+
+        /* Main content area wave background - same as pricing */
+        .main-certifications {
+            padding-top: 120px; /* Increased padding to account for fixed header */
+            padding-bottom: 60px;
+            position: relative;
+            overflow: hidden;
+            background-color: var(--color-body-bg); /* Ensure a base background */
+        }
+
+        .main-wave-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1; /* Send it behind content */
+            opacity: 0.1; /* Subtle opacity */
+            pointer-events: none; /* Ensure it doesn't interfere with clicks */
+        }
+
+        .main-wave-bg svg {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        .main-wave-bg path {
+            fill: var(--color-light-purple); /* Use a light color for the wave */
+        }
