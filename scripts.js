@@ -20,6 +20,23 @@ function scrollFunction() {
     }
 }
 
+// New function: Dynamically adjust the mobile navigation menu's top position
+function adjustNavMenuPosition() {
+    const header = document.getElementById("mainHeader"); // CHANGED: Get the actual header element
+    const navMenu = document.querySelector(".navbar ul");
+
+    // Only apply this logic if the screen is considered mobile (same as your media query breakpoint)
+    if (window.innerWidth <= 768 && header && navMenu) { // Added null checks
+        // Get the current computed height of the header
+        const headerHeight = header.offsetHeight;
+        navMenu.style.top = `${headerHeight}px`;
+    } else if (navMenu) { // Only reset if navMenu exists
+        // On desktop, reset the 'top' style to allow CSS rules to take over,
+        // or ensure it doesn't interfere with desktop layout.
+        navMenu.style.top = ''; // Clears the inline style set by JS
+    }
+}
+
 // Select the hamburger menu and the navigation list
 const hamburger = document.querySelector(".hamburger");
 const navMenu = document.querySelector(".navbar ul");
@@ -42,24 +59,6 @@ if (hamburger && navMenu) { // Ensure elements exist before adding listeners
         navMenu.classList.remove("active");
         adjustNavMenuPosition(); // Call this when closing
     }));
-}
-
-
-// New function: Dynamically adjust the mobile navigation menu's top position
-function adjustNavMenuPosition() {
-    const header = document.getElementById("mainHeader"); // CHANGED: Get the actual header element
-    const navMenu = document.querySelector(".navbar ul");
-
-    // Only apply this logic if the screen is considered mobile (same as your media query breakpoint)
-    if (window.innerWidth <= 768 && header && navMenu) { // Added null checks
-        // Get the current computed height of the header
-        const headerHeight = header.offsetHeight;
-        navMenu.style.top = `${headerHeight}px`;
-    } else if (navMenu) { // Only reset if navMenu exists
-        // On desktop, reset the 'top' style to allow CSS rules to take over,
-        // or ensure it doesn't interfere with desktop layout.
-        navMenu.style.top = ''; // Clears the inline style set by JS
-    }
 }
 
 // 2. Scroll Animation Function
@@ -100,8 +99,88 @@ document.addEventListener('DOMContentLoaded', function() {
     initScrollAnimations();
     // Also call adjustNavMenuPosition on load to set the initial correct position
     adjustNavMenuPosition();
-});
+
+// --- Lightbox Functionality ---
+    // --- Lightbox Functionality ---
+    const galleryImages = document.querySelectorAll('.gallery img');
+    let currentImageIndex = 0;
+    let imagesArray = []; // To store only the *non-blurred* gallery image sources for navigation
+
+    // Create lightbox elements if they don't exist
+    let lightboxOverlay = document.getElementById('lightbox-overlay');
+    if (!lightboxOverlay) {
+        lightboxOverlay = document.createElement('div');
+        lightboxOverlay.id = 'lightbox-overlay';
+        lightboxOverlay.classList.add('lightbox-overlay');
+        lightboxOverlay.innerHTML = `
+            <div class="lightbox-content">
+                <img src="" alt="Full size image" class="lightbox-image">
+                <span class="lightbox-close">&times;</span>
+                <span class="lightbox-nav lightbox-prev">&lsaquo;</span>
+                <span class="lightbox-nav lightbox-next">&rsaquo;</span>
+            </div>
+        `;
+        document.body.appendChild(lightboxOverlay);
+    }
+
+    const lightboxImage = lightboxOverlay.querySelector('.lightbox-image');
+    const lightboxClose = lightboxOverlay.querySelector('.lightbox-close');
+    const lightboxPrev = lightboxOverlay.querySelector('.lightbox-prev');
+    const lightboxNext = lightboxOverlay.querySelector('.lightbox-next');
+
+    // Populate imagesArray and add click listeners to *non-blurred* gallery images
+    galleryImages.forEach((img) => {
+        if (!img.classList.contains('blurred-preview')) { // ONLY add non-blurred images to the lightbox array
+            imagesArray.push(img.getAttribute('data-full-src') || img.src);
+            img.addEventListener('click', () => {
+                // Find the index of the clicked image within the imagesArray (non-blurred ones)
+                currentImageIndex = imagesArray.indexOf(img.getAttribute('data-full-src') || img.src);
+                openLightbox(imagesArray[currentImageIndex]);
+            });
+        }
+    });
+
+    // Function to open the lightbox
+    function openLightbox(src) {
+        lightboxImage.src = src;
+        lightboxOverlay.classList.add('active');
+        document.body.style.overflow = 'hidden'; // Prevent scrolling when lightbox is open
+    }
+
+    // Function to close the lightbox
+    function closeLightbox() {
+        lightboxOverlay.classList.remove('active');
+        document.body.style.overflow = ''; // Restore scrolling
+    }
+
+    // Lightbox controls
+    lightboxClose.addEventListener('click', closeLightbox);
+
+    lightboxPrev.addEventListener('click', () => {
+        currentImageIndex = (currentImageIndex > 0) ? currentImageIndex - 1 : imagesArray.length - 1;
+        lightboxImage.src = imagesArray[currentImageIndex];
+    });
+
+    lightboxNext.addEventListener('click', () => {
+        currentImageIndex = (currentImageIndex < imagesArray.length - 1) ? currentImageIndex + 1 : 0;
+        lightboxImage.src = imagesArray[currentImageIndex];
+    });
+
+    // Close lightbox on overlay click (but not on content click)
+    lightboxOverlay.addEventListener('click', (e) => {
+        if (e.target === lightboxOverlay) {
+            closeLightbox();
+        }
+    });
+
+    // Close lightbox with Escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && lightboxOverlay.classList.contains('active')) {
+            closeLightbox();
+        }
+    });
 
 // Add an event listener for window resize to re-adjust the nav menu position
 // in case the user resizes the browser window across the mobile/desktop breakpoint.
-window.addEventListener('resize', adjustNavMenuPosition);
+window.addEventListener('resize', adjustNavMenuPosition)
+  })
