@@ -1,6 +1,11 @@
-/* General Styles */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Lora:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 html {
     scroll-behavior: smooth;
+    box-sizing: border-box;
+}
+
+*, ::before, ::after {
+    box-sizing: inherit; 
 }
 
 /* Color Palette Variables */
@@ -18,11 +23,17 @@ html {
 
 
 body {
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Lora', serif; /* Simple but elegant paragraph font */
     margin: 0;
     padding: 0;
     background-color: var(--color-body-bg);
     color: var(--color-text-dark);
+    overflow-x: hidden;
+}
+
+p {
+    font-family: 'Lora', serif;
+    /* Ensure existing paragraph styles like font-size, line-height are respected from other sections */
 }
 
 a {
@@ -35,8 +46,14 @@ a:hover {
     color: var(--color-light-purple);
 }
 
-h2 {
-    color: var(--color-mid-pink);
+h1, h2, h3, h4 {
+    font-family: 'Playfair Display', serif; /* New, more readable stylish italic font */
+    font-style: italic; /* Ensure it's italic */
+    color: var(--color-mid-pink); /* Maintain existing heading color */
+}
+
+h3, h4 {
+    font-style: normal;
 }
 
 /* Header */
@@ -51,6 +68,7 @@ header {
     top: 0;
     left: 0;
     z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     transition: padding 0.4s ease, height 0.4s ease;
 }
 
@@ -109,38 +127,43 @@ header {
 }
 
 /* --- GLOBAL HAMBURGER STYLING (Hidden by default on desktop) --- */
+
+/* Hamburger Menu with a new absolute positioning approach */
 .hamburger {
-    display: none; /* IMPORTANT: Hide by default on desktop */
+    display: none; /* Hidden by default on desktop */
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     cursor: pointer;
-    flex-direction: column; /* To stack the bars vertically */
-    justify-content: space-around; /* Distribute space between bars */
-    width: 30px; /* Width of the hamburger icon */
-    height: 25px; /* Height of the hamburger icon */
-    z-index: 1001; /* Ensure it's above other elements */
-    padding: 5px; /* Add some padding around the icon area */
-    margin-right: 20px; /* Space from the right edge */
+    z-index: 1000;
+    position: relative; /* Essential for positioning the bars inside */
+    width: 30px;
+    height: 20px; /* Adjusted to fit the bars without extra padding */
 }
 
-/* --- HAMBURGER BARS STYLING (The actual lines of the icon) --- */
 .hamburger .bar {
-    display: block; /* Ensure each bar behaves like a block element */
-    width: 100%; /* Bars take full width of the hamburger container */
-    height: 3px; /* Thickness of each bar */
-    background-color: var(--color-light-grey); /* Light grey bars visible on dark header */
-    border-radius: 10px;
-    transition: all 0.3s ease-in-out; /* Smooth transition for animation */
+    width: 25px;
+    height: 3px;
+    background-color: var(--color-text-light);
+    transition: all 0.3s ease;
+    display: block;
+    position: absolute; /* The key change: absolute positioning */
+    left: 0; /* Align to the left of the container */
 }
 
-/* --- HAMBURGER ANIMATION STYLING (When 'open' class is added by JS) --- */
-.hamburger.open .bar:nth-child(1) {
-    transform: translateY(11px) rotate(45deg);
+.hamburger .bar:nth-child(1) {
+    top: 0; /* First bar at the top */
 }
-.hamburger.open .bar:nth-child(2) {
-    opacity: 0; /* Middle bar fades out */
+
+.hamburger .bar:nth-child(2) {
+    top: 50%; /* Second bar in the middle */
+    transform: translateY(-50%); /* Adjust to be perfectly centered */
 }
-.hamburger.open .bar:nth-child(3) {
-    transform: translateY(-11px) rotate(-45deg);
+
+.hamburger .bar:nth-child(3) {
+    bottom: 0; /* Third bar at the bottom */
 }
+/* --- END GLOBAL HAMBURGER STYLING --- */
 
 
 /* Hero Section */
@@ -336,14 +359,14 @@ section {
 
 /* Alternating colors for cards */
 .option-card:nth-child(odd) {
-    background-color: rgba(228, 189, 240, 0.2); /* light-purple with transparency */
-    border: 1px solid rgba(255, 255, 255, 0.3); /* Keep border consistent */
+    background-color: rgba(228, 189, 240, 0.5); /* light-purple with transparency */
+    border: 1px solid rgba(255, 255, 255, 0.5); /* Keep border consistent */
 }
 
 
 .option-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 12px 25px rgba(214, 167, 176, 0.4);
+    box-shadow: 0 12px 25px rgba(214, 167, 176, 0.6);
     /* Slightly more opaque on hover for glass effect */
     background-color: rgba(238, 238, 236, 0.3); /* Slightly more opaque light-grey */
 }
@@ -644,214 +667,6 @@ footer {
     transform: scale(1.1); /* Slightly larger scale on hover */
 }
 
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .about-content-wrapper {
-        flex-direction: column; /* Stack columns on medium screens */
-        gap: 30px;
-    }
-
-    .about-image-container,
-    .about-text-content {
-        flex: none; /* Remove flex sizing */
-        width: 100%; /* Take full width */
-    }
-
-    .personal-photo {
-        max-width: 80%; /* Adjust max-width for stacked image */
-    }
-
-    .about-text-content {
-        padding: 25px;
-    }
-
-    .about-subtitle {
-        text-align: center; /* Center subtitle when stacked */
-    }
-
-    .about-text-content p {
-        text-align: center; /* Center text when stacked */
-    }
-
-    .about-text {
-        text-align: center;
-    }
-
-    .footer-nav ul {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    /* Reduce padding in sections */
-    section {
-        padding: 40px 10px;
-    }
-
-    .lightbox-close {
-        top: 10px;
-        right: 15px;
-        font-size: 30px;
-    }
-    .lightbox-nav {
-        font-size: 40px;
-        padding: 5px;
-    }
-    .lightbox-prev {
-        left: 10px;
-    }
-    .lightbox-next {
-        right: 10px;
-    }
-
-    /* Contact form inputs full width */
-    .contact-form input,
-    .contact-form textarea,
-    .contact-form button {
-        width: 100%;
-    }
-
-    /* Adjust header padding for smaller screens */
-    header {
-        padding: 10px 20px;
-    }
-
-    /* Navbar flex behavior for mobile */
-    .navbar {
-        justify-content: flex-end;
-        width: 100%; /* Take full width of header on mobile */
-        padding: 0; /* Ensure no conflicting padding on navbar itself on mobile */
-    }
-
-    /* HIDE the full navigation list on mobile/shrunk desktop */
-    .navbar ul {
-        display: none; /* HIDE the full navigation list */
-        flex-direction: column; /* Stack items vertically when shown */
-        width: 100%; /* Full width for mobile */
-        background-color: var(--color-dark-grey); /* Background for the dropdown menu */
-        position: absolute;
-        top: 70px; /* Adjust based on shrunk header's height */
-        left: -100%; /* Start off-screen to slide in */
-        padding: 20px 0;
-        border-top: 1px solid rgba(255, 255, 255, 0.1);
-        box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-        z-index: 999;
-        transition: left 0.3s ease-in-out; /* Smooth slide transition */
-    }
-
-
-    
-    /* SHOW the mobile navigation list when active */
-    .navbar ul.active {
-        left: 0; /* Slide into view */
-        display: flex; /* Ensure it's displayed */
-    }
-
-    /* DISPLAY HAMBURGER ON SMALL SCREENS */
-    .hamburger {
-        display: flex; /* SHOW the hamburger icon on mobile/shrunk desktop */
-        padding-right: 0; /* Remove specific padding for hamburger */
-        padding-right: 50px;
-    }
-
-    .hamburger.active .bar:nth-child(2) {
-        opacity: 0;
-    }
-    .hamburger.active .bar:nth-child(1) {
-        transform: translateY(8px) rotate(45deg);
-    }
-    .hamburger.active .bar:nth-child(3) {
-        transform: translateY(-8px) rotate(-45deg);
-    }
-
-    .navbar ul li {
-        margin-bottom: 15px;
-        text-align: center;
-    }
-
-    .navbar ul li a {
-        padding: 10px 20px;
-        display: block;
-    }
-
-    /* Ensure logo is properly sized on mobile */
-    .logo img {
-        height: 50px; /* Smaller logo height on mobile */
-    }
-
-    /* Pricing Page - Adjustments*/
-    .pricing-grid {
-                grid-template-columns: 1fr; /* Stack cards on smaller screens */
-                padding: 15px;
-            }
-
-            .pricing-card {
-                padding: 25px;
-            }
-
-            .pricing-card h3 {
-                font-size: 1.6rem;
-            }
-
-            .pricing-card .price {
-                font-size: 2rem;
-            }
-
-    /* Certifications Page - Adjustments*/
-            .certifications-grid {
-                grid-template-columns: 1fr; /* Stack cards on smaller screens */
-                padding: 15px;
-            }
-
-            .certification-card {
-                min-height: auto; /* Allow height to adjust */
-            }
-
-            .page-intro-section {
-                padding: 30px 15px;
-            }
-}
-
-/* Super small screens */
-@media (max-width: 480px) {
-    h2 {
-        font-size: 1.8rem;
-    }
-
-    body {
-        font-size: 1rem;
-    }
-
-       .page-intro-section {
-        padding: 30px 15px;
-    }
-
-    .about-text-content {
-        padding: 20px;
-    }
-
-    .about-subtitle {
-        font-size: 1.6rem;
-    }
-
-    .about-text-content p {
-        font-size: 0.95rem;
-    }
-    /* Pricing Page - Adjustments*/
-
-             .pricing-card {
-                padding: 20px;
-            }
-
-            .pricing-card h3 {
-                font-size: 1.4rem;
-            }
-
-            .pricing-card .price {
-                font-size: 1.8rem;
-            }
-}
-
 /* Scroll Animations */
 .hidden {
     opacity: 0;
@@ -1045,7 +860,7 @@ footer {
 
 /* Certifications Page - Specific Styles */
 
-.page-intro-section {
+        .page-intro-section {
             background: linear-gradient(180deg, var(--color-body-bg) 0%, rgba(248, 248, 248, 0.8) 100%);
             padding: 40px 20px;
             text-align: center;
@@ -1096,6 +911,7 @@ footer {
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+            cursor: pointer;
         }
 
         .certification-card:hover {
@@ -1109,7 +925,6 @@ footer {
             object-fit: cover; /* Ensures image covers the area without distortion */
             display: block; /* Ensure image itself is block for proper sizing */
             border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Subtle separator */
-            box-sizing: border-box; /* Also apply to img for consistency */
         }
         
         .certification-info {
@@ -1160,6 +975,58 @@ footer {
             fill: var(--color-light-purple); /* Use a light color for the wave */
         }
 
+        
+        .cert-popup {
+            position: fixed;
+            top: 0;
+            left: 20;
+            padding-left: 15px;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            visibility: hidden;
+            opacity: 0;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .cert-popup.is-visible {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .cert-popup .relative {
+            position: relative;
+        }
+
+        .cert-popup-image {
+            max-width: 90%;
+            max-height: 90vh;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.7);
+        }
+
+        .cert-popup-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            color: white;
+            font-size: 2.5rem;
+            line-height: 1;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 0;
+            transition: transform 0.2s ease;
+        }
+
+        .cert-popup-close:hover {
+            transform: scale(1.1);
+        }
+
 
 
     /* Contact Page Styles*/
@@ -1167,7 +1034,7 @@ footer {
             display: flex;
             flex-wrap: wrap; /* Allow columns to wrap on smaller screens */
             gap: 30px;
-            max-width: 1200px;
+            max-width: 1500px;
             margin: 50px auto;
             padding: 0 20px;
         }
@@ -1182,10 +1049,10 @@ footer {
             padding: 30px;
             position: relative; /* For gradient overlay */
             overflow: hidden; /* To contain pseudo-element */
-        }
+        }   
 
         .contact-details-column h3 {
-            color: var(--color-light-purple);
+            color: var(--color-mid-pink);
             font-size: 1.8rem;
             text-align: center;
             margin-bottom: 30px;
@@ -1195,37 +1062,22 @@ footer {
 
         .contact-info-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr; /* Two columns for info cards */
-            gap: 20px; /* Space between info cards */
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: repeat(2, 1fr);
+            gap: 1.5rem; /* Space between info cards */
             position: relative; /* Above pseudo-element */
             z-index: 1;
         }
 
-        .info-card {
-            background-color: var(--color-dark-pink); /* Dark pink background for info cards */
-            color: var(--color-text-light);
-            padding: 20px;
-            border-radius: 10px;
-            text-align: center;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 120px;
-        }
-
         .info-card .icon {
-            width: 40px;
-            height: 40px;
+            width: 3rem;
             fill: var(--color-light-purple); /* Icon color */
-            margin-bottom: 10px;
-        }
-
+            }
+   
         .info-card h4 {
             font-size: 1.2rem;
             margin-bottom: 5px;
-            color: var(--color-text-light);
+            color: var(--color-light-purple);
         }
 
         .info-card p {
@@ -1233,6 +1085,56 @@ footer {
             line-height: 1.4;
             color: var(--color-light-grey);
             word-break: break-word; /* Ensure long text breaks */
+        }
+
+        .info-card {
+            display: flex;
+            flex-direction: column; /* Stack the elements (heading and icons) vertically */
+            justify-content: center; /* Center content vertically */
+            align-items: center; /* Center content horizontally */
+            text-align: center;
+            padding: 2rem; /* Adjust padding to match other grid items for consistent spacing */
+            border-radius: 1.5rem; /* Match the rounded corners from the image */
+            box-shadow: 0 10px 5px -3px rgba(0, 0, 0, 0.1);
+            background-color: #88397a; /* A purple background color */
+            color: #ffffff; /* White text for contrast */
+            height: 100%;
+            min-height: 120px;
+            min-width: 0; 
+        }
+        #social-media-card {
+            display: flex;
+            flex-direction: column; /* Stack the elements (heading and icons) vertically */
+            justify-content: space-between; /* Center content vertically */
+            align-items: center; /* Center content horizontally */
+            text-align: center;
+            padding: 2rem; /* Adjust padding to match other grid items for consistent spacing */
+            border-radius: 1.5rem; /* Match the rounded corners from the image */
+            box-shadow: 0 10px 5px -3px rgba(0, 0, 0, 0.1);
+            background-color: #88397a; /* A purple background color */
+            color: #ffffff; /* White text for contrast */
+            height: 100%;
+            min-height: 120px;
+            min-width: 0; 
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 0.5rem; /* Space between icons */
+        }
+
+        .social-icons a {
+            transition: transform 0.3s ease-in-out; /* Smooth hover effect */
+        }
+
+        .social-icons a img {
+            width: 2rem;
+            height: 2rem;  /* Set a fixed size for the icons on larger screens */
+            object-fit: contain; /* Ensure the full icon is visible */
+        }
+
+        .social-icons a:hover {
+            transform: scale(1.1); /* Slightly enlarge the icon on hover */
         }
 
         /* Right Column: Contact Form */
@@ -1252,52 +1154,544 @@ footer {
             text-align: center;
             margin-bottom: 30px;
         }
+        .contact-column {
+            flex: 1; /* Each column takes up equal space */
+            min-width: 300px; /* Minimum width before wrapping */
+            background-color: var(--color-dark-grey);
+            color: var(--color-text-light);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
 
-        .form-group {
+        .contact-column h3 {
+            color: var(--color-mid-pink );
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .contact-form .form-group {
             margin-bottom: 20px;
         }
 
-        .form-group label {
+        .contact-form label {
             display: block;
-            margin-bottom: 8px;
-            font-weight: bold;
-            color: var(--color-text-dark);
-            font-size: 0.95rem;
-        }
-
-        .form-group input[type="text"],
-        .form-group input[type="email"],
-        .form-group input[type="tel"],
-        .form-group textarea {
-            width: calc(100% - 20px); /* Adjust for padding */
-            padding: 12px;
-            border: 1px solid var(--color-light-purple); /* Light purple border */
-            border-radius: 8px;
             font-size: 1rem;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: var(--color-light-purple);
+        }
+
+        .contact-form input[type="text"],
+        .contact-form input[type="email"],
+        .contact-form input[type="tel"],
+        .contact-form textarea {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid var(--color-light-purple);
+            background-color: var(--color-body-bg);
             color: var(--color-text-dark);
-            background-color: white; /* White background for inputs */
-            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
         }
 
-        .form-group input[type="text"]:focus,
-        .form-group input[type="email"]:focus,
-        .form-group input[type="tel"]:focus,
-        .form-group textarea:focus {
-            border-color: var(--color-mid-pink);
-            box-shadow: 0 0 0 3px rgba(218, 127, 184, 0.2); /* Soft focus glow */
+        .contact-form textarea {
+            resize: vertical; /* Allow resizing only vertically */
+        }
+
+        .contact-form input:focus,
+        .contact-form textarea:focus {
             outline: none;
+            border-color: var(--color-mid-pink);
         }
 
-        .form-group textarea {
-            resize: vertical; /* Allow vertical resizing */
-            min-height: 100px;
+        .heading-separator-contact{
+            width: 150px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--color-light-purple), var(--color-mid-pink));
+            margin: 15px auto 25px auto; /* Center and add vertical spacing */
+            border-radius: 2px;
+        }
+        /* Styling the 'mailto' link as a button */
+        .submit-button {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background-color: var(--color-dark-pink);
+            color: var(--color-text-light);
+            border-radius: 8px;
+            text-align: center;
+            font-size: 1.1rem;
+            font-weight: bold;
+            text-decoration: none; /* Remove underline from link */
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            cursor: pointer;
+            border: none;
         }
 
-        .form-group input::placeholder,
-        .form-group textarea::placeholder {
-            color: var(--color-placeholder); /* Placeholder color from palette */
-            opacity: 1; /* Ensure placeholder is visible */
+        .submit-button:hover {
+            background-color: var(--color-mid-pink);
+            transform: translateY(-2px);
+            color: var(--color-text-dark);
+        }
+
+        /* Custom Alert Modal styles */
+        #custom-alert-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+        }
+        #custom-alert-modal .modal-content {
+            background-color: var(--color-body-bg);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+            border: 2px solid var(--color-mid-pink);
+        }
+        #custom-alert-modal p {
+            color: var(--color-text-dark);
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+            line-height: 1.5;
+        }
+        #custom-alert-modal button {
+            background-color: var(--color-dark-pink);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        #custom-alert-modal button:hover {
+            background-color: var(--color-mid-pink);
         }
 
 
-/* Gallerie      */
+        /* Gallerie      */
+        .gallery-section {
+            max-width: 72rem;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        .gallery-item {
+            display: inline-block;
+            width: 100%;
+            margin-bottom: 1rem;
+            position: relative;
+            cursor: pointer;
+            border-radius: 0.75rem;
+            overflow: hidden;
+            -webkit-column-break-inside: avoid;
+            page-break-inside: avoid;
+            break-inside: avoid;
+        }
+        .gallery-item::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.4);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .gallery-item:hover::after {
+            opacity: 1;
+        }
+        .gallery-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+
+        .gallery-lightbox-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            display: none; /* Hidden by default */
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+        }
+
+        .gallery-lightbox-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 90%;
+        }
+
+        .gallery-lightbox-image {
+            display: block;
+            max-width: 100%;
+            max-height: 90vh;
+            object-fit: contain;
+        }
+
+        .gallery-lightbox-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            color: #fff;
+            font-size: 3rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .gallery-lightbox-close:hover,
+        .gallery-lightbox-close:focus {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .gallery-lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #fff;
+            font-size: 4rem;
+            cursor: pointer;
+            transition: color 0.3s ease;
+            user-select: none;
+        }
+
+        .gallery-lightbox-nav:hover {
+            color: var(--primary-color);
+        }
+
+        .gallery-lightbox-prev {
+            left: 1rem;
+        }
+
+        .gallery-lightbox-next {
+            right: 1rem;
+        }
+
+        /* Masonry Grid Layout */
+                .masonry-grid {
+                    column-count: 2; /* Default for mobile */
+                    column-gap: 1rem;
+                }
+                @media (min-width: 640px) { /* sm */
+                    .masonry-grid {
+                        column-count: 3;
+                    }
+                }
+                @media (min-width: 768px) { /* md */
+                    .masonry-grid {
+                        column-count: 4;
+                    }
+                }
+                @media (min-width: 1024px) { /* lg */
+                    .masonry-grid {
+                        column-count: 4;
+                    }
+                }
+
+
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    body{
+        overflow-x: hidden;
+    }
+
+    .about-content-wrapper {
+        flex-direction: column; /* Stack columns on medium screens */
+        gap: 30px;
+    }
+
+    .about-image-container,
+    .about-text-content {
+        flex: none; /* Remove flex sizing */
+        width: 100%; /* Take full width */
+    }
+
+    .personal-photo {
+        max-width: 80%; /* Adjust max-width for stacked image */
+    }
+
+    .about-text-content {
+        padding: 25px;
+    }
+
+    .about-subtitle {
+        text-align: center; /* Center subtitle when stacked */
+    }
+
+    .about-text-content p {
+        text-align: center; /* Center text when stacked */
+    }
+
+    .about-text {
+        text-align: center;
+    }
+
+    .footer-nav ul {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    /* Reduce padding in sections */
+    section {
+        padding: 40px 10px;
+    }
+
+    .lightbox-close {
+        top: 10px;
+        right: 15px;
+        font-size: 30px;
+    }
+    .lightbox-nav {
+        font-size: 40px;
+        padding: 5px;
+    }
+    .lightbox-prev {
+        left: 10px;
+    }
+    .lightbox-next {
+        right: 10px;
+    }
+
+    /* Contact form inputs full width */
+    .contact-form input,
+    .contact-form textarea,
+    .contact-form button {
+        width: 100%;
+    }
+
+    /* Adjust header padding for smaller screens */
+    header {
+        padding: 10px 20px;
+    }
+
+    /* Navbar flex behavior for mobile */
+    .navbar {
+        justify-content: flex-end;
+        width: 100%; /* Take full width of header on mobile */
+        padding: 0; /* Ensure no conflicting padding on navbar itself on mobile */
+    }
+
+    /* HIDE the full navigation list on mobile/shrunk desktop */
+    .navbar ul {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        background-color: var(--color-dark-grey);
+        position: absolute;
+        top: 80px; /* Below header */
+        left: 0;
+        padding: 20px 0;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s ease-in-out;
+    }
+
+    .navbar ul.active {
+        display: flex;
+    }
+
+    /* Use the higher specificity selector here as well */
+    header .hamburger {
+        display: block; /* Change from flex to block to match new positioning */
+    }
+
+    /* Hamburger animation */
+    .hamburger.active .bar:nth-child(2) {
+        opacity: 0;
+    }
+    .hamburger.active .bar:nth-child(1) {
+        transform: translateY(8.5px) rotate(45deg); /* Adjusted for absolute positioning */
+    }
+    .hamburger.active .bar:nth-child(3) {
+        transform: translateY(-8.5px) rotate(-45deg); /* Adjusted for absolute positioning */
+    }
+
+    .navbar ul li {
+        margin-bottom: 15px;
+        text-align: center;
+    }
+
+    .navbar ul li a {
+        padding: 10px 20px;
+        display: block;
+    }
+
+
+    /* Ensure logo is properly sized on mobile */
+    .logo img {
+        height: 50px; /* Smaller logo height on mobile */
+    }
+
+    /* Pricing Page - Adjustments*/
+    .pricing-grid {
+                grid-template-columns: 1fr; /* Stack cards on smaller screens */
+                padding: 15px;
+            }
+
+            .pricing-card {
+                padding: 25px;
+            }
+
+            .pricing-card h3 {
+                font-size: 1.6rem;
+            }
+
+            .pricing-card .price {
+                font-size: 2rem;
+            }
+
+    /* Certifications Page - Adjustments*/
+            .certifications-grid {
+                grid-template-columns: 1fr; /* Stack cards on smaller screens */
+                padding: 15px;
+            }
+
+            .certification-card {
+                min-height: auto; /* Allow height to adjust */
+            }
+
+            .page-intro-section {
+                padding: 30px 15px;
+            }
+
+            .social-icons a img {
+                width: 2rem;
+                height: 2rem;  /* Reduce the icon size for mobile devices */
+                object-fit: contain; /* Ensure the full icon is visible */
+            }
+
+        }
+
+/* Super small screens */
+@media (max-width: 480px) {
+    header {
+        padding: 10px 15px; /* More compact header */
+    }
+    body {
+        overflow-x: hidden;
+    }
+    .logo img {
+        height: 45px; /* Even smaller logo */
+    }
+    .navbar ul {
+        top: 65px; /* Adjust dropdown position for smaller header */
+    }
+
+    /* General Font Sizes */
+    h1 { /* Assuming you might use h1 on homepage, ensure it scales */
+        font-size: 2.2rem; /* Example, adjust based on actual h1 usage */
+    }
+    h2 {
+        font-size: 1.6rem; /* Slightly smaller than 1.8rem for more compact headings */
+    }
+    h3 {
+        font-size: 1.4rem; /* Smaller for subheadings */
+    }
+    p {
+        font-size: 0.95rem; /* Slightly smaller paragraphs for better density */
+        line-height: 1.5; /* Adjust line height for readability */
+    }
+
+    /* Main Content Sections */
+    main {
+        padding-top: 80px; /* Adjust main content padding for smaller header */
+    }
+    .page-intro-section {
+        padding: 25px 15px; /* Reduced padding for intro sections */
+    }
+    .about-content-wrapper,
+    .options-grid,
+    .gallery,
+    .contact-content-wrapper {
+        padding: 0 15px; /* Reduced horizontal padding for main content areas */
+        gap: 20px; /* Slightly reduced gap between grid items/columns */
+    }
+
+    .social-icons a img {
+        width: 1.5rem;  /* Further reduce icon size for very small screens */
+    }
+
+    /* Cards (Pricing, Options, Certifications) */
+    .pricing-card,
+    .option-card,
+    .certification-card,
+    .contact-details-column,
+    .contact-form-column {
+        padding: 20px; /* Consistent reduced padding for all cards/columns */
+    }
+
+    /* Gallery Specifics */
+    .gallery img {
+        height: 200px; /* Reduced fixed height for gallery images */
+    }
+
+    /* Form Elements */
+    .form-group input[type="text"],
+    .form-group input[type="email"],
+    .form-group input[type="tel"],
+    .form-group textarea {
+        padding: 10px; /* Slightly reduced input padding */
+        font-size: 0.95rem; /* Ensure input text is readable */
+    }
+
+    /* Buttons */
+    .main-book-button,
+    .contact-form-column .submit-button {
+        padding: 12px 25px; /* More compact button size */
+        font-size: 1rem; /* Readable font size for buttons */
+    }
+    .hero-button{
+        padding: 12px 25px; /* More compact button size */
+        font-size: 0.9rem; /* Readable font size for buttons */
+    }
+
+    /* Floating Button */
+    .floating-button {
+        bottom: 15px;
+        right: 15px;
+        padding: 10px 18px;
+        font-size: 0.8rem;
+    }
+
+    /* Footer */
+    footer {
+        padding: 15px 10px;
+    }
+    footer .social-logos img {
+        height: 35px;
+        width: 35px;
+    }
+    footer .footer-nav ul {
+        gap: 8px;
+    }
+    footer .footer-nav ul li a {
+        font-size: 0.85rem;
+    }
+    footer p {
+        font-size: 0.75rem;
+    }
+}

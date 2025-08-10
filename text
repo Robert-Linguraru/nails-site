@@ -1,36 +1,19 @@
 work to do:
-
-GALLERY WORK ON PAGE
-    
-1. Image Optimization & Performance:
-* Problem: A long list of high-resolution JPGs can significantly slow down your page load, especially on mobile, leading to a poor user experience.
-* Suggestion:
-* Compress Images: Use tools (online or software like TinyPNG, ImageOptim) to reduce file sizes without noticeable loss in quality.
-* Modern Formats: Consider converting images to modern formats like WebP. They offer superior compression compared to JPG/PNG. You can use <picture> tags for fallback to JPG for older browsers.
+____________________________________________________________________________________________________________________________________________________________________
+Work on gallery page
 * Lazy Loading: Implement loading="lazy" on your <img> tags. This tells the browser to only load images when they are about to enter the viewport, saving bandwidth and initial load time.
 
-Video Showcase: A short, high-quality video montage of your work or a time-lapse of a nail art creation could be incredibly engaging.
-
-
-----------------------------------------------------------------------------------------------------------------------
-Fix pricing page with svg data etc, check gemini. Apart from some small fixes the pricing page should be done.        |
-    >>> We will add icons to the specific cards suggesting their respective things.                                   |
-        Find icons on the website, download and implement instead of svg tags                                         |
-                                                                                                                      |
-I will need Assistance for design process from Sab                                                                    |
-helping me choose the right icons for each part                                                                       |
-----------------------------------------------------------------------------------------------------------------------
-
-
+Add images to gallery
 ______________________________________________________________________________________________________________________________________________________________________
-Certifications page, 
-need to change some of the text on that page to align with its respective certificates so it makes sense
-Blur out CNP on the certificates and then upload the images back on the website.
-Add logic to open these certifications on new tab, the images themselves
+Fix button book now so it doesnt go all the way down
+add button to main page contact me to lead to contact page
+Last checks, have a look at text on mobile and optimize
 
 
 
 
 
-Forms -- Index.html and Contact.html
-Add logic to form so it sends emails
+
+Possible future changes:
+Fix pricing page with icons instead of circles
+Also add pricing on main page with some Icons to improve 

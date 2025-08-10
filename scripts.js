@@ -7,6 +7,25 @@ window.onscroll = function() {
     adjustNavMenuPosition(); // Call this on scroll to adjust for header height changes
 };
 
+function customAlert(message) {
+    // Check if a modal is already open to prevent multiple modals
+    if (document.getElementById('custom-alert-modal')) {
+        return;
+    }
+    const modalHtml = `
+        <div id="custom-alert-modal">
+            <div class="modal-content">
+                <p>${message}</p>
+                <button id="close-alert-button">OK</button>
+            </div>
+        </div>
+    `;
+    document.body.insertAdjacentHTML('beforeend', modalHtml);
+    document.getElementById('close-alert-button').addEventListener('click', () => {
+        document.getElementById('custom-alert-modal').remove();
+    });
+}
+
 function scrollFunction() {
     const header = document.getElementById("mainHeader"); // Correctly target the main header
     const logo = document.getElementById("logo").querySelector('img'); // Target the img inside the logo div
@@ -37,7 +56,9 @@ function adjustNavMenuPosition() {
     }
 }
 
-// Select the hamburger menu and the navigation list
+// 1. Hamburger Menu Functionality
+function hamburgerMenu() {
+    // Select the hamburger menu and the navigation list
 const hamburger = document.querySelector(".hamburger");
 const navMenu = document.querySelector(".navbar ul");
 
@@ -60,13 +81,9 @@ if (hamburger && navMenu) { // Ensure elements exist before adding listeners
         adjustNavMenuPosition(); // Call this when closing
     }));
 }
+}
 
 // 2. Scroll Animation Function
-/**
- * Initializes scroll animations for elements with the 'hidden' class.
- * When an element with 'hidden' class enters the viewport,
- * the 'show' class is added, triggering a CSS transition.
- */
 function initScrollAnimations() {
     // Create a new IntersectionObserver instance
     const observer = new IntersectionObserver((entries) => {
@@ -91,16 +108,8 @@ function initScrollAnimations() {
     hiddenElements.forEach((el) => observer.observe(el));
 }
 
-
-// 3. DOMContentLoaded Listener (existing, with added calls)
-// This ensures that all elements are available before the scripts try to find them.
-document.addEventListener('DOMContentLoaded', function() {
-    // Call the new scroll animation function here
-    initScrollAnimations();
-    // Also call adjustNavMenuPosition on load to set the initial correct position
-    adjustNavMenuPosition();
-
-// --- Lightbox Functionality ---
+function lightbox() {
+    // --- Lightbox Functionality ---
     // --- Lightbox Functionality ---
     const galleryImages = document.querySelectorAll('.gallery img');
     let currentImageIndex = 0;
@@ -179,6 +188,213 @@ document.addEventListener('DOMContentLoaded', function() {
             closeLightbox();
         }
     });
+
+}
+
+function form() {
+
+        // --- Logic for the General Inquiry Form ---
+        const inquiryButton = document.getElementById('inquiryButton');
+        const inquiryName = document.getElementById('inquiryName');
+        const inquiryEmail = document.getElementById('inquiryEmail');
+        const inquiryMessage = document.getElementById('inquiryMessage');
+
+    // Check if form elements exist on the page
+    if (inquiryButton && inquiryName && inquiryEmail && inquiryMessage) {
+        // Listen for clicks on the inquiry button
+        inquiryButton.addEventListener('click', (e) => {
+            // Prevent the default link behavior if the form is empty
+            if (!inquiryName.value || !inquiryEmail.value || !inquiryMessage.value) {
+                // Now using the custom modal function
+                customAlert('Vă rugăm să completați toate câmpurile.');
+                return;
+            }
+            const subject = 'Întrebare Generală de pe site';
+            const body = `De la: ${inquiryName.value}\nEmail: ${inquiryEmail.value}\n\nMesaj:\n${inquiryMessage.value}`;
+            const mailtoLink = `mailto:raileanu.sabina00@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+            inquiryButton.href = mailtoLink;
+        });
+    }
+
+        // --- Logic for the Booking Form ---
+        const bookingButton = document.getElementById('bookingButton');
+        const bookingName = document.getElementById('bookingName');
+        const bookingTel = document.getElementById('bookingTel');
+        const bookingService = document.getElementById('bookingService');
+        const bookingMessage = document.getElementById('bookingMessage');
+
+        // Listen for clicks on the booking button
+        if (bookingButton && bookingName && bookingTel && bookingService && bookingMessage) {
+        // Listen for clicks on the booking button
+        bookingButton.addEventListener('click', (e) => {
+            // Prevent the default link behavior if the form is empty
+            if (!bookingName.value || !bookingTel.value || !bookingService.value || !bookingMessage.value) {
+                customAlert('Vă rugăm să completați toate câmpurile.');
+                return;
+            }
+            const subject = 'Cerere de Programare de pe site';
+            const body = `De la: ${bookingName.value}\nTelefon: ${bookingTel.value}\nServiciu dorit: ${bookingService.value}\n\nDetalii Programare:\n${bookingMessage.value}`;
+            const mailtoLink = `mailto:raileanu.sabina00@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+            bookingButton.href = mailtoLink;
+        });
+    }}
+
+function cert() {
+        const certificationCards = document.querySelectorAll('.certification-card');
+        const certPopup = document.getElementById('cert-popup');
+        const certPopupImage = document.getElementById('cert-popup-image-content');
+        const closeCertPopupButton = document.getElementById('close-cert-popup-button');
+
+        // Check if the essential elements are found
+        if (!certPopup || !certPopupImage || !closeCertPopupButton) {
+            console.error('--- CRITICAL ERROR: One or more essential pop-up elements were not found in the HTML. Please ensure the full HTML file is loaded correctly. ---');
+            return; // Exit the script to prevent further errors
+        }
+
+        console.log('--- SCRIPT INITIALIZED: All pop-up elements found successfully. ---');
+
+        // Function to open the cert pop-up
+        function openCertPopup(imageUrl) {
+            if (imageUrl) {
+                console.log('--- LOG: Attempting to open pop-up with image URL:', imageUrl);
+                certPopupImage.src = imageUrl;
+                certPopup.classList.add('is-visible');
+            } else {
+                console.error('--- ERROR: Image URL is missing from the data-full-image attribute. Cannot open pop-up.');
+            }
+        }
+
+        // Function to close the cert pop-up
+        function closeCertPopup() {
+            console.log('--- LOG: Closing pop-up.');
+            certPopup.classList.remove('is-visible');
+            // Clear the image source after the transition
+            setTimeout(() => {
+                certPopupImage.src = '';
+            }, 300);
+        }
+
+        // Add click event listener to each certification card
+        certificationCards.forEach(card => {
+            card.addEventListener('click', () => {
+                const fullImageUrl = card.dataset.fullImage;
+                openCertPopup(fullImageUrl);
+            });
+        });
+
+        // Add click event listener to the close button
+        closeCertPopupButton.addEventListener('click', closeCertPopup);
+
+        // Add a click event listener to the pop-up background to close it
+        certPopup.addEventListener('click', (event) => {
+            if (event.target === certPopup) {
+                closeCertPopup();
+            }
+        });
+}    
+
+function galleryLightbox() {
+    // Select all image elements within the specific portfolio gallery container.
+    const portfolioGalleryItems = document.querySelectorAll('#portfolio-gallery-container .gallery-item img');
+
+    // Select the specific portfolio lightbox overlay and its components.
+    const portfolioLightboxOverlay = document.getElementById('portfolio-lightbox-overlay');
+    const portfolioLightboxImage = portfolioLightboxOverlay.querySelector('.gallery-lightbox-image');
+    const portfolioLightboxClose = portfolioLightboxOverlay.querySelector('.gallery-lightbox-close');
+    const portfolioLightboxPrev = portfolioLightboxOverlay.querySelector('.gallery-lightbox-prev');
+    const portfolioLightboxNext = portfolioLightboxOverlay.querySelector('.gallery-lightbox-next');
+    
+    // Convert the NodeList of images to an array for easy indexing.
+    const allPortfolioImages = Array.from(portfolioGalleryItems);
+    let currentImageIndex = 0;
+
+    /**
+     * Opens the portfolio lightbox and displays the selected image.
+     * @param {number} index - The index of the image to display from the portfolio array.
+     */
+    const openPortfolioLightbox = (index) => {
+        currentImageIndex = index;
+        const image = allPortfolioImages[currentImageIndex];
+        
+        if (portfolioLightboxImage) {
+            portfolioLightboxImage.src = image.dataset.fullSrc || image.src;
+            portfolioLightboxImage.alt = image.alt;
+        }
+        
+        if (portfolioLightboxOverlay) {
+            portfolioLightboxOverlay.style.display = 'flex';
+        }
+    };
+
+    /**
+     * Closes the portfolio lightbox.
+     */
+    const closePortfolioLightbox = () => {
+        if (portfolioLightboxOverlay) {
+            portfolioLightboxOverlay.style.display = 'none';
+        }
+    };
+
+    /**
+     * Navigates to the next image in the portfolio gallery.
+     */
+    const showNextImage = () => {
+        currentImageIndex = (currentImageIndex + 1) % allPortfolioImages.length;
+        openPortfolioLightbox(currentImageIndex);
+    };
+
+    /**
+     * Navigates to the previous image in the portfolio gallery.
+     */
+    const showPrevImage = () => {
+        currentImageIndex = (currentImageIndex - 1 + allPortfolioImages.length) % allPortfolioImages.length;
+        openPortfolioLightbox(currentImageIndex);
+    };
+
+    // Add event listeners to each portfolio gallery item to open the lightbox on click.
+    portfolioGalleryItems.forEach((img, index) => {
+        img.addEventListener('click', () => openPortfolioLightbox(index));
+    });
+
+    // Add event listeners for the lightbox controls.
+    if (portfolioLightboxClose) {
+        portfolioLightboxClose.addEventListener('click', closePortfolioLightbox);
+    }
+    if (portfolioLightboxNext) {
+        portfolioLightboxNext.addEventListener('click', showNextImage);
+    }
+    if (portfolioLightboxPrev) {
+        portfolioLightboxPrev.addEventListener('click', showPrevImage);
+    }
+
+    // Close lightbox on click outside the image.
+    if (portfolioLightboxOverlay) {
+        portfolioLightboxOverlay.addEventListener('click', (e) => {
+            if (e.target === portfolioLightboxOverlay) {
+                closePortfolioLightbox();
+            }
+        });
+    }
+}
+
+
+
+// 3. DOMContentLoaded Listener (existing, with added calls)
+// This ensures that all elements are available before the scripts try to find them.
+document.addEventListener('DOMContentLoaded', function(){
+    initScrollAnimations();
+    adjustNavMenuPosition();
+    if (window.location.pathname.includes('index.html')) {
+        lightbox(); // Initialize lightbox only on index.html
+    }
+    hamburgerMenu();
+    form();
+    if (window.location.pathname.includes('certifications.html')) {
+        cert();
+    }
+    if (window.location.pathname.includes('portfolio.html')) {
+        galleryLightbox(); // Initialize gallery lightbox only on portfolio.html
+    }
 
 // Add an event listener for window resize to re-adjust the nav menu position
 // in case the user resizes the browser window across the mobile/desktop breakpoint.

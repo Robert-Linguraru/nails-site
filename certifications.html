@@ -1,7 +1,13 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>These are my certifications</title>
+    <meta name="description" content="Sabina Raileanu - Nail Artist and Pedicurist. Offering beautiful manicures, pedicures, and stunning nail art designs. Book now!">
+    <meta name="keywords" content="Nails, Manicure, Pedicure, Nail Artist, Nail Designs">
+    <meta name="author" content="Sabina Raileanu">
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sabina Raileanu | Nail Artist & Pedicurist</title>
     <link rel="stylesheet" href="tempstyles.css">
   </head>
   <body>
@@ -45,7 +51,7 @@
     </div>
 
     <div class="certifications-grid">
-        <div class="certification-card">
+        <div class="certification-card" data-full-image="/img/Certificate1.jpg">
             <img src="/img/Certificate1.jpg" alt="Certificare Manichiură Avansată" ">
             <div class="certification-info">
                 <h3>Certificat de Calificare Profesională</h3>
@@ -53,42 +59,42 @@
             </div>
         </div>
 
-        <div class="certification-card">
+        <div class="certification-card" data-full-image="/img/Certificate2.jpg">
             <img src="/img/Certificate2.jpg" alt="" onerror="this.onerror=null;this.src='https://placehold.co/400x200/DA7FB8/FFFFFF?text=Certificare+2';">
             <div class="certification-info">
                 <h3>Absolvire Colegiu</h3>
-                <p>Absolvit Colegiul Technic "Alexandru Ioan Cuza" pe domeniul Estetica si Igiena Corpului Omenesc.</p>
+                <p>Absolvit Colegiul Technic "Alexandru Ioan Cuza" pe domeniul Estetica si Igiena Corpului Omenesc, cu specializarea Protezist Unghii.</p>
             </div>
         </div>
 
-        <div class="certification-card">
+        <div class="certification-card" data-full-image="/img/Certificate3.jpg">
             <img src="/img/Certificate3.jpg" alt="Certificat de Absolvire" onerror="this.onerror=null;this.src='https://placehold.co/400x200/DA7FB8/FFFFFF?text=Certificare+3';">
             <div class="certification-info">
                 <h3>Certificat de Absolvire</h3>
-                <p>Absolvit Liceu in Iasi pentru Stilist Protezist de Unghii.</p>
+                <p>Absolvit Acadamie Styllia Class pentru Stilist Protezist de Unghii, Iasi.</p>
             </div>
         </div>
 
-        <div class="certification-card">
+        <div class="certification-card" data-full-image="/img/Certificate4.jpg">
             <img src="/img/Certificate4.jpg" alt="Diplomă Nail Art Masterclass" onerror="this.onerror=null;this.src='https://placehold.co/400x200/DA7FB8/FFFFFF?text=Certificare+4';">
             <div class="certification-info">
                 <h3>Certificat - Totul Despre Unghii</h3>
-                <p>Completat un curs, Nail Art Masterclass de la Anita- Nails Professor.</p>
+                <p>Completat curs la Anita-Nails Acadmemy.</p>
             </div>
         </div>
 
-        <div class="certification-card">
+        <div class="certification-card" data-full-image="/img/Certificate5.jpg">
             <img src="/img/Certificate5.jpg" alt="Certificat Completare" onerror="this.onerror=null;this.src='https://placehold.co/400x200/DA7FB8/FFFFFF?text=Certificare+4';">
             <div class="certification-info">
                 <h3>Certificat Completare Life University</h3>
-                <p>Terminat un masterclass pentru unghi de la Tanya Povenskaya, la Life University.</p>
+                <p>Terminat Masterclass nails artist by Tanya Povenskaya, la Life University.</p>
             </div>
         </div>
 
     </div>
     </main>
 
-    <a href="contact.html" class="floating-button">Book Now</a>
+    <a href="contact.html" class="floating-button">Programează-te acum</a>
 
     <footer>
         <div class="social-logos">
@@ -117,6 +123,16 @@
         <p>&copy; 2025 Sabina Raileanu. All rights reserved.</p>
     </footer>
   
+<!-- The Cert Pop-up for full-size image -->
+<div id="cert-popup" class="cert-popup">
+    <div class="relative">
+        <img id="cert-popup-image-content" src="" alt="Full-size certificate" class="cert-popup-image">
+        <button id="close-cert-popup-button" class="cert-popup-close">
+            &times;
+        </button>
+    </div>
+</div>
+
     <script src="scripts.js"></script>
 
 </body>
