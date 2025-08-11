@@ -204,9 +204,9 @@
 
     </main>
 
-    <a href="contact.html" class="floating-button">Programează-te acum</a>
+    <a href="contact.html" class="floating-button" id="floating-button">Programează-te acum</a>
 
-    <footer>
+    <footer id="page-footer">
         <div class="social-logos">
             <a href="https://www.instagram.com/sabinails.yournailartist/"target="_blank">
                 <img src="img/instagram.png" alt="Instagram">
@@ -234,6 +234,37 @@
     </footer>
   
     <script src="scripts.js"></script>
+    <script>
+        // Get references to the floating button and the footer element
+        const floatingButton = document.getElementById('floating-button');
+        const footer = document.getElementById('page-footer');
 
+        // This function is called every time the user scrolls
+        function handleScroll() {
+            // IMPORTANT: We check if both elements exist before trying to use them.
+            // This prevents the "getBoundingClientRect is not a function" error if
+            // the IDs in the HTML don't match.
+            if (floatingButton && footer) {
+                const buttonRect = floatingButton.getBoundingClientRect();
+                const footerRect = footer.getBoundingClientRect();
+                
+                const buffer = -50;
+
+                if (buttonRect.bottom + buffer > footerRect.top) {
+                    floatingButton.style.opacity = '0';
+                    floatingButton.style.pointerEvents = 'none';
+                } else {
+                    floatingButton.style.opacity = '1';
+                    floatingButton.style.pointerEvents = 'auto';
+                }
+            }
+        }
+
+        // Add an event listener that triggers the handleScroll function on every scroll event
+        window.addEventListener('scroll', handleScroll);
+
+        // Call the function once on page load to handle the initial state
+        window.addEventListener('DOMContentLoaded', handleScroll);
+    </script>
 </body>
 </html>

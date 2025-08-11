@@ -294,88 +294,85 @@ function cert() {
 }    
 
 function galleryLightbox() {
-    // Select all image elements within the specific portfolio gallery container.
-    const portfolioGalleryItems = document.querySelectorAll('#portfolio-gallery-container .gallery-item img');
+            const galleryItems = document.querySelectorAll('.gallery-item');
+            const lightboxOverlay = document.getElementById('portfolio-lightbox-overlay');
+            const lightboxImage = document.querySelector('.gallery-lightbox-image');
+            const closeButton = document.querySelector('.gallery-lightbox-close');
+            const prevButton = document.querySelector('.gallery-lightbox-prev');
+            const nextButton = document.querySelector('.gallery-lightbox-next');
+            let currentImageIndex;
+            const images = Array.from(galleryItems).map(item => item.querySelector('img'));
 
-    // Select the specific portfolio lightbox overlay and its components.
-    const portfolioLightboxOverlay = document.getElementById('portfolio-lightbox-overlay');
-    const portfolioLightboxImage = portfolioLightboxOverlay.querySelector('.gallery-lightbox-image');
-    const portfolioLightboxClose = portfolioLightboxOverlay.querySelector('.gallery-lightbox-close');
-    const portfolioLightboxPrev = portfolioLightboxOverlay.querySelector('.gallery-lightbox-prev');
-    const portfolioLightboxNext = portfolioLightboxOverlay.querySelector('.gallery-lightbox-next');
-    
-    // Convert the NodeList of images to an array for easy indexing.
-    const allPortfolioImages = Array.from(portfolioGalleryItems);
-    let currentImageIndex = 0;
+            // Function to show the lightbox with a specific image
+            const showLightbox = (index) => {
+                currentImageIndex = index;
+                // Get the data-full-src attribute from the selected image
+                const fullSrc = images[currentImageIndex].getAttribute('data-full-src');
+                lightboxImage.src = fullSrc;
+                lightboxImage.alt = images[currentImageIndex].alt;
 
-    /**
-     * Opens the portfolio lightbox and displays the selected image.
-     * @param {number} index - The index of the image to display from the portfolio array.
-     */
-    const openPortfolioLightbox = (index) => {
-        currentImageIndex = index;
-        const image = allPortfolioImages[currentImageIndex];
-        
-        if (portfolioLightboxImage) {
-            portfolioLightboxImage.src = image.dataset.fullSrc || image.src;
-            portfolioLightboxImage.alt = image.alt;
+                // Add an active class to trigger the CSS transition
+                lightboxOverlay.style.display = 'flex';
+                // Use a slight delay to ensure the display change is registered before the opacity transition starts
+                setTimeout(() => {
+                    lightboxOverlay.classList.add('is-active');
+                }, 10);
+            };
+
+            // Function to hide the lightbox
+            const hideLightbox = () => {
+                lightboxOverlay.classList.remove('is-active');
+                // Use a delay to allow the opacity transition to finish before hiding the element completely
+                setTimeout(() => {
+                    lightboxOverlay.style.display = 'none';
+                }, 300);
+            };
+
+            // Function to navigate to the next image
+            const showNextImage = () => {
+                currentImageIndex = (currentImageIndex + 1) % images.length;
+                showLightbox(currentImageIndex);
+            };
+
+            // Function to navigate to the previous image
+            const showPrevImage = () => {
+                currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;
+                showLightbox(currentImageIndex);
+            };
+
+            // Add click listeners to all gallery items
+            galleryItems.forEach((item, index) => {
+                item.addEventListener('click', () => {
+                    showLightbox(index);
+                });
+            });
+
+            // Add click listeners to lightbox controls
+            closeButton.addEventListener('click', hideLightbox);
+            prevButton.addEventListener('click', showPrevImage);
+            nextButton.addEventListener('click', showNextImage);
+
+            // Hide lightbox when clicking on the overlay itself (not the image)
+            lightboxOverlay.addEventListener('click', (e) => {
+                if (e.target === lightboxOverlay) {
+                    hideLightbox();
+                }
+            });
+
+            // Add keyboard support for navigation and closing
+            document.addEventListener('keydown', (e) => {
+                if (lightboxOverlay.classList.contains('is-active')) {
+                    if (e.key === 'ArrowRight') {
+                        showNextImage();
+                    } else if (e.key === 'ArrowLeft') {
+                        showPrevImage();
+                    } else if (e.key === 'Escape') {
+                        hideLightbox();
+                    }
+                }
+            });
         }
-        
-        if (portfolioLightboxOverlay) {
-            portfolioLightboxOverlay.style.display = 'flex';
-        }
-    };
 
-    /**
-     * Closes the portfolio lightbox.
-     */
-    const closePortfolioLightbox = () => {
-        if (portfolioLightboxOverlay) {
-            portfolioLightboxOverlay.style.display = 'none';
-        }
-    };
-
-    /**
-     * Navigates to the next image in the portfolio gallery.
-     */
-    const showNextImage = () => {
-        currentImageIndex = (currentImageIndex + 1) % allPortfolioImages.length;
-        openPortfolioLightbox(currentImageIndex);
-    };
-
-    /**
-     * Navigates to the previous image in the portfolio gallery.
-     */
-    const showPrevImage = () => {
-        currentImageIndex = (currentImageIndex - 1 + allPortfolioImages.length) % allPortfolioImages.length;
-        openPortfolioLightbox(currentImageIndex);
-    };
-
-    // Add event listeners to each portfolio gallery item to open the lightbox on click.
-    portfolioGalleryItems.forEach((img, index) => {
-        img.addEventListener('click', () => openPortfolioLightbox(index));
-    });
-
-    // Add event listeners for the lightbox controls.
-    if (portfolioLightboxClose) {
-        portfolioLightboxClose.addEventListener('click', closePortfolioLightbox);
-    }
-    if (portfolioLightboxNext) {
-        portfolioLightboxNext.addEventListener('click', showNextImage);
-    }
-    if (portfolioLightboxPrev) {
-        portfolioLightboxPrev.addEventListener('click', showPrevImage);
-    }
-
-    // Close lightbox on click outside the image.
-    if (portfolioLightboxOverlay) {
-        portfolioLightboxOverlay.addEventListener('click', (e) => {
-            if (e.target === portfolioLightboxOverlay) {
-                closePortfolioLightbox();
-            }
-        });
-    }
-}
 
 
 
