@@ -287,6 +287,10 @@ section {
     margin: 0 auto; /* Center image horizontally */
 }
 
+.about-image-container .abonament{
+    height: 75%;
+}
+
 .about-text-content {
     flex: 2; /* Take up more space than the image */
     padding: 20px;
